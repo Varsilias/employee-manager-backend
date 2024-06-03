@@ -1,4 +1,4 @@
-package com.danielokoronkwo.employeemanager.exceptions;
+package com.danielokoronkwo.employeemanager.common.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

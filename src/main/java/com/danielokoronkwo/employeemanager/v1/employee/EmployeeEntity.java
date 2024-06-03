@@ -1,10 +1,10 @@
-package com.danielokoronkwo.employeemanager.models;
+package com.danielokoronkwo.employeemanager.v1.employee;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -15,10 +15,10 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    public Employee() {
+    public EmployeeEntity() {
     }
 
-    public Employee(String firstName, String lastName, String email) {
+    public EmployeeEntity(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

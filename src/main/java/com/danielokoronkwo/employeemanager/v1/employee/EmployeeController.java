@@ -1,8 +1,6 @@
-package com.danielokoronkwo.employeemanager.controllers;
+package com.danielokoronkwo.employeemanager.v1.employee;
 
-import com.danielokoronkwo.employeemanager.exceptions.ResourceNotFoundException;
-import com.danielokoronkwo.employeemanager.models.Employee;
-import com.danielokoronkwo.employeemanager.repositories.EmployeeRepository;
+import com.danielokoronkwo.employeemanager.common.exceptions.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,18 +18,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeEntity> getAllEmployees() {
         return this.employeeRepository.findAll();
     }
 
     @PostMapping("/employees")
-    public Employee createEmployee(@RequestBody Employee employee) {
+    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employee) {
         return this.employeeRepository.save(employee);
     }
 
     @GetMapping("/employees/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
-        Employee employee = this.employeeRepository
+    public ResponseEntity<EmployeeEntity> getEmployeeById(@PathVariable Long id) {
+        EmployeeEntity employee = this.employeeRepository
                 .findById(id)
                 .orElseThrow(() ->  new ResourceNotFoundException("Employee does not exists"));
         return ResponseEntity.ok(employee);
@@ -39,21 +37,21 @@ public class EmployeeController {
     }
 
     @PutMapping("/employees/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
-        Employee employee = this.getEmployeeById(id).getBody();
+    public ResponseEntity<EmployeeEntity> updateEmployee(@PathVariable Long id, @RequestBody EmployeeEntity employeeDetails) {
+        EmployeeEntity employee = this.getEmployeeById(id).getBody();
 
         employee.setFirstName(employeeDetails.getFirstName());
         employee.setLastName(employeeDetails.getLastName());
         employee.setEmail(employeeDetails.getEmail());
 
-        Employee updateEmployee = this.employeeRepository.save(employee);
+        EmployeeEntity updateEmployee = this.employeeRepository.save(employee);
 
         return ResponseEntity.ok(updateEmployee);
     }
 
     @DeleteMapping("/employees/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) {
-        Employee employee = this.getEmployeeById(id).getBody();
+        EmployeeEntity employee = this.getEmployeeById(id).getBody();
         this.employeeRepository.delete(employee);
 
         Map<String, Boolean> response = new HashMap<>();
