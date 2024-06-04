@@ -2,7 +2,6 @@ package com.danielokoronkwo.employeemanager.common.exceptions.security;
 
 import com.danielokoronkwo.employeemanager.common.constants.MessageConstants;
 import com.danielokoronkwo.employeemanager.common.dto.ErrorMessageDto;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;

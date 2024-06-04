@@ -2,7 +2,6 @@ package com.danielokoronkwo.employeemanager.common.filters;
 
 import com.danielokoronkwo.employeemanager.common.constants.MessageConstants;
 import com.danielokoronkwo.employeemanager.common.dto.ErrorMessageDto;
-import com.danielokoronkwo.employeemanager.common.exceptions.UnauthorisedException;
 import com.danielokoronkwo.employeemanager.v1.auth.JwtService;
 import com.danielokoronkwo.employeemanager.v1.auth.user.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;

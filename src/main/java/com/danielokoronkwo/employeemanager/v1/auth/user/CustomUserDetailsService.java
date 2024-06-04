@@ -1,6 +1,5 @@
 package com.danielokoronkwo.employeemanager.v1.auth.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findOneByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found"));
+        UserEntity userEntity = userRepository.findOneByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found"));
         return new CustomUserDetails(userEntity.getEmail(), userEntity.getPassword(), null);
     }
 }
