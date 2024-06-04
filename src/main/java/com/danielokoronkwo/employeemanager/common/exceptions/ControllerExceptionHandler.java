@@ -2,12 +2,14 @@ package com.danielokoronkwo.employeemanager.common.exceptions;
 
 import com.danielokoronkwo.employeemanager.common.constants.MessageConstants;
 import com.danielokoronkwo.employeemanager.common.dto.ErrorMessageDto;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -81,5 +83,17 @@ public class ControllerExceptionHandler {
         List<String> error = Collections.singletonList(message);
         ErrorMessageDto errorMessageDto = new ErrorMessageDto(MessageConstants.ERROR, message, error, null);
         return new ResponseEntity<>(errorMessageDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({ InsufficientAuthenticationException.class })
+    public ResponseEntity<ErrorMessageDto> handleInsufficientAuthenticationException(InsufficientAuthenticationException ex) {
+        logger.info("InsufficientAuthenticationException Trace: {}", ex.getMessage());
+
+//        String message = "Token Expired, you can request a new access token";
+        String message = ex.getMessage();
+        List<String> error = Collections.singletonList(message);
+        ErrorMessageDto errorMessageDto = new ErrorMessageDto(MessageConstants.ERROR, message, error,
+                null);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessageDto);
     }
 }

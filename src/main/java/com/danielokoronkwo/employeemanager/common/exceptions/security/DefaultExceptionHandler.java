@@ -2,6 +2,7 @@ package com.danielokoronkwo.employeemanager.common.exceptions.security;
 
 import com.danielokoronkwo.employeemanager.common.constants.MessageConstants;
 import com.danielokoronkwo.employeemanager.common.dto.ErrorMessageDto;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -18,12 +19,13 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ AuthenticationException.class })
     @ResponseBody
-    public ResponseEntity<ErrorMessageDto> handleAuthenticationException(Exception ex) {
+    public ResponseEntity<ErrorMessageDto> handleAuthenticationException(AuthenticationException ex) {
 
         String message = "Unauthorised";
         List<String> error = Collections.singletonList(message);
-        ErrorMessageDto errorMessageDto = new ErrorMessageDto(MessageConstants.ERROR,message, error,
+        ErrorMessageDto errorMessageDto = new ErrorMessageDto(MessageConstants.ERROR, message, error,
                 null);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessageDto);
     }
+
 }

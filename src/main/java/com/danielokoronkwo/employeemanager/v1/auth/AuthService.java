@@ -64,7 +64,7 @@ public class AuthService {
     public UserEntity signUpUser(SignUpRequestDto signUpRequestDto) {
         boolean userExists = userService.getUser(signUpRequestDto.getEmail()).isPresent();
 
-        logger.info("Signing In User: {}", signUpRequestDto.getEmail());
+        logger.info("Signing Up User: {}", signUpRequestDto.getEmail());
 
 
         if (userExists) {
@@ -87,7 +87,7 @@ public class AuthService {
         return passwordEncoder.encode(password);
     }
 
-    private boolean comparePassword(String hashedPassword, String password) throws IllegalArgumentException {
+    private boolean comparePassword(String hashedPassword, String password) {
         return passwordEncoder.matches(password, hashedPassword);
     }
 }

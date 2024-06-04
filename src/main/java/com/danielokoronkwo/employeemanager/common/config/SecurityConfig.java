@@ -2,6 +2,7 @@ package com.danielokoronkwo.employeemanager.common.config;
 
 import com.danielokoronkwo.employeemanager.common.filters.JwtAuthFilter;
 import com.danielokoronkwo.employeemanager.v1.auth.user.CustomUserDetailsService;
+import com.danielokoronkwo.employeemanager.v1.auth.user.UserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,8 @@ public class SecurityConfig {
 
     private final AuthenticationEntryPoint authEntryPoint;
     private final JwtAuthFilter jwtAuthFilter;
+
+    private UserRepository userRepository;
 
     public SecurityConfig(@Qualifier("delegatedAuthenticationEntryPoint")
                           AuthenticationEntryPoint authEntryPoint,
@@ -56,7 +59,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
+        return new CustomUserDetailsService(userRepository);
     }
 
     @Bean
